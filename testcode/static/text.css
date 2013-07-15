@@ -123,15 +123,10 @@ a
 {
   margin-bottom: 15px;
 }
-.casebigbox
+.casebigbox, .casebigbox1
   {
+    /*Really, you don't need to use this.  Keeping for legacy purposes.*/
     position: relative;
-    height: 100px;
-  }
-  .casebigbox1
-  {
-    position: relative;
-    height: 215px;
   }
 
 .inputtest
@@ -156,7 +151,7 @@ a
 {
   width:100%;
 }
-#problemdescription
+#problemdescription, #initialcode
 {
  width:500px;
 
@@ -168,11 +163,6 @@ a
   height:300px;
  
 }*/
-#initialcode
-{
- width:300px;
-  margin-right: 15px;
-}
 .errormessage
 {
   float:right;
@@ -377,11 +367,6 @@ table#table2
     margin-right:0px !important;  
      
     width:320px;
-}
-
-#incode
-{
-  width:100%;
 }
 
 #problemstable  td
@@ -597,7 +582,7 @@ table.jqplot-legend {
  
 }
 
-#description1
+#description1, #incode
 {
  
  width:100%;

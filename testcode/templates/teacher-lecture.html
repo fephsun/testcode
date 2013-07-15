@@ -3,23 +3,23 @@
   <head>
       <title> Prob</title>
      <link href='http://fonts.googleapis.com/css?family=Strait' rel='stylesheet' type='text/css'> 
-      <link rel="stylesheet" type="text/css" href="/static/text.css" />
-      <link href="/static/bootstrap/css/bootstrap.css" rel="stylesheet" media="screen">
+      <link rel="stylesheet" type="text/css" href="/testcode/static/text.css" />
+      <link href="/testcode/static/bootstrap/css/bootstrap.css" rel="stylesheet" media="screen">
       <script src="http://code.jquery.com/jquery-latest.js"></script>
       <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
       <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.js"></script>
       <script src="http://code.jquery.com/ui/1.10.0/jquery-ui.js"></script>
       <script src="http://jqueryui.com/resources/demos/external/jquery.bgiframe-2.1.2.js"></script>
-       <script src="/static/bootstrap/js/bootstrap.js"></script>
-      <link rel="stylesheet" href="/static/code/lib/codemirror.css">
-      <script src="/static/code/lib/codemirror.js"></script>
-      <script src="/static/code/lib/matchbrackets.js"></script>
-      <script src="/static/code/python.js"></script>
-      <script type="text/javascript" src="/static/java.js"></script>
-      <script type="text/javascript" src="/static/teacher-lecture.js"></script>
-    <link rel="stylesheet" href="/static/j-query.css" />
-      <script type="text/javascript" src="/static/scroll/jquery.slimscroll.min.js"></script>
-        <script type="text/javascript" src="/static/account.js"></script>
+       <script src="/testcode/static/bootstrap/js/bootstrap.js"></script>
+      <link rel="stylesheet" href="/testcode/static/code/lib/codemirror.css">
+      <script src="/testcode/static/code/lib/codemirror.js"></script>
+      <script src="/testcode/static/code/lib/matchbrackets.js"></script>
+      <script src="/testcode/static/code/python.js"></script>
+      <script type="text/javascript" src="/testcode/static/java.js"></script>
+      <script type="text/javascript" src="/testcode/static/teacher-lecture.js"></script>
+    <link rel="stylesheet" href="/testcode/static/j-query.css" />
+      <script type="text/javascript" src="/testcode/static/scroll/jquery.slimscroll.min.js"></script>
+        <script type="text/javascript" src="/testcode/static/account.js"></script>
       <style type="text/css">.CodeMirror {border: 1px solid #dfdfdf; border-bottom: 1px solid #dfdfdf;}</style>              
                
      
@@ -100,7 +100,7 @@
             <div id="headt">
               
                <div id="logo">
-                  <a href="#home"> <img src="/static/logo1.png"> </a>
+                  <a href="#home"> <img src="/testcode/static/logo1.png"> </a>
                            
                        
                     
@@ -194,10 +194,11 @@
                          <table border="0" id="problemstable1">
                             {% for problem in problems %}  
                              <tr>                                 
-                                 <td> {{problem.1}} submissions</td>
+                                 <td> {{problem.1}} subs</td>
 
                                  <td> <div class="btn-group in rightm">              
                             <button class="btn viewsubmissions " type="button higher" id="{{problem.0.problem_id}}"> <i class="icon-signal"></i> View students' performance</button> 
+                            <button class="btn delete-problem" problem-id="{{problem.0.problem_id}}"> Delete </button>
                        </div></td>
                                 
                             </tr>
@@ -210,43 +211,85 @@
                    
                  </div>     
                                 
-                 <div id="latest" >   
+     <div id="latest" >   
+        <div class="classe"><div class="margins"><div id="problemtitle">
+        <!--The problem title will be inserted right here, using javascript.-->
+        </div></div> </div>
 
-                 <p class="empty"> Click on the problem to start editing. </p>                 
-                     <!--  <div class="classe">                      
-                          <div class="margins"> Problem 4 </div> 
-                       </div>
-                       <div class="fields"> Description </div>                     
-                       <div id="problemdescription"> <form><textarea id="description1" name="description" cols="98" rows="10" style="background-color: #FFF; font-size:14px"></textarea> </form> </div>
-                      <div class=" marginbottom"> <div class="btn-group in forsave"><button class="btn" type="button" id="savedescription"><i class="icon-ok-circle"></i> Save</button></div> </div>
-                        <div class="fields "> Test cases </div>
-                        <div class="casebigbox">
-                            <div class="inputtest">                           
-                              <p class="indents"> Input </p>
-                              <form><textarea id="inputtext" name="inputtext" cols="45" rows="10" style="background-color: #FFF; font-size:14px"></textarea> </form> 
-                            </div> 
-                            <div class="outputtest"> 
-                            <p class="indents">  Output</p>
-                            <form><textarea id="outputtext" name="outputtext" cols="45" rows="10" style="background-color: #FFF; font-size:14px"></textarea> </form> </div>
-                            </div>
-                            <div class="btn-group in"><button class="btn" type="button" id="testcase1"><i class="icon-tasks"></i> Add a new test case</button></div>
-                          -->
-                  </div>
-
-
-
-                    
-                      
-  
-                    
+        <div class="fields1">   
+            <div class="pull-right" style="width:320px">
                 
-             
-                    
-                    
+            </div>
+        </div>              
+        <div class="casebigbox1 pull-left" id="problemdescription">
+            <div class="errormesage" id="desc" style="font-size:13px"> </div>
+            <div id="results"></div>
+            Description
+            <form><textarea id="description1" name="description" rows="5" placeholder="Enter your problem description here. Make sure to include all information a student requires to solve the problem." style="background-color: #FFF; font-size:14px"></textarea> </form>
+            
+            <br />
+            Initial Code
+            <form><textarea id="incode" name="code" style="background-color: #FFF; font-size:14px">
+def my_fn(input):
+    pass
+            </textarea>
+            </form>
+            
+            <br />
+            Testing Script
+            <form><textarea id="testscript" name="testscript" style="background-color: #FFF; font-size:14px">
+# A sample testing script:
+cases = [('in1', 'out1'), ('in2', 'out2')]
+def case_tester(fn, cases):
+    score = 0
+    for in_value, expected_out in cases:
+        actual_out = fn(in_value)
+        if actual_out == expected_out:
+            print "Correct output for " + str(in_value)
+            score += 1
+        else:
+            print "Incorrect output for " + str(in_value)
+            print "Expected " + str(expected_out)
+            print "Got " + str(actual_out)
+    print score
+case_tester(my_fn, cases)
+            </textarea>
+            </form>
+
+            <br />
+            Official Solution
+            <form><textarea id="soln" name="soln" tyle="background-color: #FFF; font-size:14px"></textarea>
+            </form>
+
+            <script>
+            //This is the code editor, provided by CodeMirror.
+            makeCodeBlock(document.getElementById("incode"));
+            makeCodeBlock(document.getElementById("testscript"));
+            makeCodeBlock(document.getElementById("soln"));
+            </script> 
+            <br />
+        </div>
+        <div class=" marginbottom1">
+            <div class="btn-group in forsave">
+                <button class="btn" type="button" id="savedescription"><i class="icon-ok-circle"></i> Save</button>
+            </div>
+        </div>
+    </div>
+
+
+
+            
               
-              
-                
-         </div>
+
+            
+        
+     
+            
+            
+      
+      
+        
+ </div>
         
         
         <!--  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!   -->

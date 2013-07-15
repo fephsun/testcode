@@ -1,6 +1,6 @@
 
        
-  function getCookie(name) {
+function getCookie(name) {
     var cookieValue = null;
     if (document.cookie && document.cookie != '') {
         var cookies = document.cookie.split(';');
@@ -15,11 +15,43 @@
     }
     return cookieValue;
 }
-  var csrftoken = getCookie('csrftoken');
-  function csrfSafeMethod(method) {
+
+function makeCodeBlock(textArea) {
+    //Turns a text area into a CodeMirror block.
+    //Turns tabs into four spaces.
+    function betterTab(cm) {
+      if (cm.somethingSelected()) {
+        cm.indentSelection("add");
+      } else {
+        cm.replaceSelection(cm.getOption("indentWithTabs")? "\t":
+          Array(cm.getOption("indentUnit") + 1).join(" "), "end", "+input");
+      }
+    }
+    if ($(textArea).data("codeBlockMade") != undefined) {
+      return;
+    }
+    var editor = CodeMirror.fromTextArea(textArea, {
+        mode: {name: "python",
+          version: 2,
+          singleLineStringErrors: false},
+        lineNumbers: true,
+        indentUnit: 4,
+        tabMode: "shift",
+        matchBrackets: true,
+        extraKeys: { Tab: betterTab },
+        viewportMargin: 2,
+     });
+    $(textArea).data("codeBlockMade", true);
+    $(textArea).data("mirror", editor)
+
+}
+
+var csrftoken = getCookie('csrftoken');
+function csrfSafeMethod(method) {
     // these HTTP methods do not require CSRF protection
     return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
 }
+/*
 function sameOrigin(url) {
     // test that a given url is a same-origin URL
     // url could be relative or scheme relative or absolute
@@ -31,11 +63,13 @@ function sameOrigin(url) {
     return (url == origin || url.slice(0, origin.length + 1) == origin + '/') ||
         (url == sr_origin || url.slice(0, sr_origin.length + 1) == sr_origin + '/') ||
         // or any other URL that isn't scheme relative or absolute i.e relative.
-        !(/^(\/\/|http:|https:).*/.test(url));
+        !(/^(\/\/|http:|https:)..test(url));
 }
+*/
 $.ajaxSetup({
+    crossDomain: false,
     beforeSend: function(xhr, settings) {
-        if (!csrfSafeMethod(settings.type) && sameOrigin(settings.url)) {
+        if (!csrfSafeMethod(settings.type)) {
             // Send the token to same-origin, relative URLs only.
             // Send the token only if the method warrants CSRF protection
             // Using the CSRFToken value acquired earlier

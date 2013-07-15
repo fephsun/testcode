@@ -58,7 +58,9 @@ class Problem(models.Model):
 	description = models.TextField(max_length=100)
 	name = models.TextField(max_length=50)
 	problem_number = models.IntegerField()
-	initial_code = models.TextField(max_length=200) #Initial function to be included
+	initial_code = models.TextField() #Initial function to be included
+	testing_script = models.TextField()
+	soln = models.TextField()
 	# Many to one relationships with Lecture - one Lecture has many Problems
 	lecture = models.ForeignKey(Lecture)
 	# Many to many relationships with Enrollment via Submission
@@ -99,10 +101,10 @@ class Enrollment(models.Model):
 class Submission(models.Model):
 	# custom primary key, via auto incrementing field
 	submission_id = models.AutoField(primary_key=True)
-	solution = models.TextField(max_length=100)
+	solution = models.TextField()
 	enrollment = models.ForeignKey(Enrollment)
 	problem = models.ForeignKey(Problem)
-	grade = models.TextField(max_length=100)
+	grade = models.TextField()
 	date = models.DateTimeField(auto_now_add=True, auto_now=True)
 
 	# Describes the object when it is called from the DB

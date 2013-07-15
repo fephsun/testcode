@@ -33,64 +33,43 @@
                     date=result.date, 
                     array=result.grade                    
                     n=name.length
-                    ntest=array[0].length 
-                    for (var i=0; i<n;i++)
-                        {
-                          grade[i]=new Array()
-                          for (var j=0; j<ntest;j++)
-                          {
-                            if (array[i].charAt(j)==1) {grade[i][j]=true} else grade[i][j]=false;
-                          }
-                        }                                                
-                     if (n==0)
+                    ntest=array[0].length
+                    if (n==0)
                       {$("#shit").html("This problem has no submissions")}
-                     else
-                      { $("#insert").html(n+' students submitted a solution')  
-                        var    scored= new Array()
-                         var       score= new Array()
-                          var      passed= new Array()
-                          var      failed= new Array()                           
-                                                    
-                            for (var j=0; j<ntest+1; j++)
-                            {
-                              score[j]=0; scored[j]=0; failed[j]=0; passed[j]=0; 
-                            }
+                    else
+                      { $("#insert").html(n+' students submitted a solution')
+                        // Count # of students with each score.
+                        var score_histogram = {};
+                        for (var student=0; student<array.length; student++) {
+                          if (array[student] in score_histogram) {
+                            score_histogram[array[student]][1] += 1;
+                          } else {
+                            score_histogram[array[student]] = [array[student], 1];
+                          }
+                        }
+                        // Get values of hashmap.
+                        var score_counts = [];
+                        for (var key in score_histogram) {
+                          score_counts.push(score_histogram[key]);
+                        }
 
-                           for (var i=0; i<n; i++)
-                              { 
-                                for (var j=0; j<ntest; j++)
-                                    {                                       
-                                      if (grade[i][j]==true) 
-                                          {
-                                            passed[j]++
-                                            score[i]++
-                                          } 
-                                      else 
-                                          {
-                                            failed[j]++
-                                          }
+                        var plot1 = jQuery.jqplot ('chart_div', [score_counts], 
+                                {  title:'Students\' score chart',
+                                  seriesDefaults: {
+                                    renderer: jQuery.jqplot.PieRenderer, 
+                                    rendererOptions: 
+                                    {showDataLabels: true
                                     }
-                                scored[score[i]]++
-                              }                           
-                            for (var i=0; i<ntest+1; i++)
-                              {
-                                  chart1[i]=new Array("Passed "+i+" testcases", scored[i])
-                              }                           
-                            var plot1 = jQuery.jqplot ('chart_div', [chart1], 
-                                    {  title:'Students\' score chart',
-                                      seriesDefaults: {
-                                        renderer: jQuery.jqplot.PieRenderer, 
-                                        rendererOptions: 
-                                        {showDataLabels: true
-                                        }
-                                      }, 
-                                      grid: { background: 'none'   ,
-                                        borderColor: 'none',
-                                         shadow: false,  
-                                        },
-                                       legend: { show:true, location: 'e' }
-                                    }
-                                  );
+                                  }, 
+                                  grid: { background: 'none'   ,
+                                    borderColor: 'none',
+                                     shadow: false,  
+                                    },
+                                   legend: { show:true, location: 'e' }
+                                }
+                              );
+
+                        //The rest of this is not working right now.
                              for (var i=1; i<ntest+1; i++)
                               {
                                 chart20[i-1]=[passed[i-1], '#'+i]

@@ -3,22 +3,22 @@
   <head>
       <title> Prob</title>
       <link href='http://fonts.googleapis.com/css?family=Strait' rel='stylesheet' type='text/css'>
-      <link rel="stylesheet" type="text/css" href="/static/text.css" />
-      <link href="/static/bootstrap/css/bootstrap.css" rel="stylesheet" media="screen">
+      <link rel="stylesheet" type="text/css" href="/testcode/static/text.css" />
+      <link href="/testcode/static/bootstrap/css/bootstrap.css" rel="stylesheet" media="screen">
       <script src="http://code.jquery.com/jquery-latest.js"></script>
       <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
       <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.js"></script>
       <script src="http://code.jquery.com/ui/1.10.0/jquery-ui.js"></script>
       <script src="http://jqueryui.com/resources/demos/external/jquery.bgiframe-2.1.2.js"></script>
-       <script src="/static/bootstrap/js/bootstrap.js"></script>
-      <link rel="stylesheet" href="/static/code/lib/codemirror.css">
-      <script src="/static/code/lib/codemirror.js"></script>
-      <script src="/static/code/lib/matchbrackets.js"></script>
-      <script src="/static/code/python.js"></script>
-      <script type="text/javascript" src="/static/java.js"></script>
-            <script type="text/javascript" src="/static/account.js"></script>
-    <link rel="stylesheet" href="/static/j-query.css" />
-      <script type="text/javascript" src="/static/scroll/jquery.slimscroll.min.js"></script>
+       <script src="/testcode/static/bootstrap/js/bootstrap.js"></script>
+      <link rel="stylesheet" href="/testcode/static/code/lib/codemirror.css">
+      <script src="/testcode/static/code/lib/codemirror.js"></script>
+      <script src="/testcode/static/code/lib/matchbrackets.js"></script>
+      <script src="/testcode/static/code/python.js"></script>
+      <script type="text/javascript" src="/testcode/static/java.js"></script>
+            <script type="text/javascript" src="/testcode/static/account.js"></script>
+    <link rel="stylesheet" href="/testcode/static/j-query.css" />
+      <script type="text/javascript" src="/testcode/static/scroll/jquery.slimscroll.min.js"></script>
       
       <style type="text/css">.CodeMirror {border: 1px solid #dfdfdf; border-bottom: 1px solid #dfdfdf;}</style>              
      
@@ -42,7 +42,7 @@
                 })
       });
             </script> 
-    <script type="text/javascript" src="/static/student.js"></script>
+    <script type="text/javascript" src="/testcode/static/student.js"></script>
 
   </head>
   <body>
@@ -90,7 +90,7 @@
             <div id="headt">
               
                <div id="logo">
-                  <a href="#home"> <img src="/static/logo1.png"> </a>
+                  <a href="#home"> <img src="/testcode/static/logo1.png"> </a>
                   
                 </div>
                <div id="topright">
@@ -145,7 +145,7 @@
                     <div id="containertop">
                         
                       <div class="classe1" id="path" >
-                                <div class="margins"> <a href="/testcode/api/userhome"><span style="font-size:17px; color:#D5F5AE">{{course.short_name}}</span></a><span class="divider">/</span>  {{lecture.description}} </div>                               
+                                <div class="margins"> <a href="/testcode/testcode/static/api/userhome"><span style="font-size:17px; color:#D5F5AE">{{course.short_name}}</span></a><span class="divider">/</span>  {{lecture.description}} </div>                               
                                                             
                              </div>
                       
@@ -181,30 +181,27 @@
                         <div id="container2"> 
                            <div class="well well-small " id="description">    <p id="descriptionplace"> {{activeProblem.description}}
                                            </p>  </div>
-                            
+
                             <div class="classe" id="feed">
                                 <div class="margins"> Feedback</div>                               
                                                             
                             </div>
                             
                             <div class="well well-small" id="feedback">
+                                <div id="score"> Your score will go here, once you submit. </div>
                                 <div id="insidefeedback">  Press "Save & Run" to see your results.</div>
                             </div>
                         </div>
                     
                         <div id="container3">
                         
-                         <div id="textcode" class="submissionid"><form id="{{submission.submission_id}}"><textarea id="code" name="code" cols="120" rows="400" style="background-color: #FFF"></textarea> </form> </div>
-                                  <script>
-                                      var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
-                                      mode: {name: "python",
-                                      version: 2,
-                                      singleLineStringErrors: false},
-                                      lineNumbers: true,
-                                      indentUnit: 4,
-                                      tabMode: "shift",
-                                      matchBrackets: true
-                                     });  </script>                                              
+                         <div id="textcode" class="submissionid"><form id="{{submission.submission_id}}"><textarea id="code" name="code" cols="120" rows="400" style="background-color: #FFF">
+                         
+                         </textarea>
+                         </form> </div>
+                        <script>
+                            makeCodeBlock(document.getElementById("code"));
+                        </script>                                              
                         </div>
                         
                         
